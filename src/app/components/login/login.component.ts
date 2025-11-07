@@ -3,6 +3,7 @@ import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,15 +15,18 @@ import { FormsModule } from '@angular/forms';
     FormsModule
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: '../../templates/form-template.scss'
 })
 export class LoginComponent {
   email: string = '';
   senha: string = '';
 
+  constructor(private router: Router){}
+
   login() {
   }
 
   cadastrar() {
+    this.router.navigate(["/cadastro"]);
   }
 }
