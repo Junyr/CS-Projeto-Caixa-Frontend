@@ -1,0 +1,4 @@
+<ng-container *ngIf="getIsAuthorized()">
+  <p *ngIf="usuario.nome"> {{ usuario.nome }} ({{ usuario.perfil }}) </p>
+  <p-button label="Sair" (onClick)="sair()"></p-button>
+</ng-container>

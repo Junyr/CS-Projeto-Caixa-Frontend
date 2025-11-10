@@ -4,6 +4,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -21,9 +22,10 @@ export class LoginComponent {
   email: string = '';
   senha: string = '';
 
-  constructor(private router: Router){}
+  constructor(private router: Router, private authService: AuthService){}
 
   login() {
+    // this.authService.login(this.email, this.senha);
   }
 
   cadastrar() {

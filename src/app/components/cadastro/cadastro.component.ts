@@ -5,13 +5,8 @@ import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { Router } from '@angular/router';
-
-export interface Usuario_Cadastro {
-  nome: string;
-  email: string;
-  senha: string;
-  perfil: string;
-}
+import { Usuario } from '../../model/usuario';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -33,7 +28,7 @@ export class CadastroComponent implements OnInit {
     { label: 'OPERADOR', value: 'OPERADOR' }
   ];
 
-  usuario: Usuario_Cadastro = {
+  usuario: Usuario = {
     nome: '',
     email: '',
     senha: '',
@@ -42,14 +37,14 @@ export class CadastroComponent implements OnInit {
 
   isSalvo: boolean = false;
 
-  constructor(private router: Router){}
+  constructor(private router: Router, private authService: AuthService){}
 
   ngOnInit(): void {
     this.isSalvo = false;
   }
 
   cadastrar() {
-    this.isSalvo = true;
+    
   }
 
   voltar() {
