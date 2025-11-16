@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Button } from "primeng/button";
 import { NgIf } from '@angular/common';
 import { AuthService } from '../../service/auth.service';
@@ -8,7 +8,7 @@ import { UsuarioInfo } from '../../model/usuarioInfo';
   selector: 'app-header',
   imports: [
     Button,
-    NgIf
+    NgIf,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
@@ -25,5 +25,4 @@ export class HeaderComponent {
   sair() { this.authService.logout(); }
 
   getIsAuthorized(): boolean { return this.authService.getIsAuthorized(); }
-
 }

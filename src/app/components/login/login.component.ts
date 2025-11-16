@@ -25,7 +25,7 @@ export class LoginComponent {
   constructor(private router: Router, private authService: AuthService){}
 
   login() {
-    // this.authService.login(this.email, this.senha);
+    this.authService.login();
   }
 
   cadastrar() {
