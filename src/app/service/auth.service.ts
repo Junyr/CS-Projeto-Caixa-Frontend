@@ -7,13 +7,19 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AuthService {
 
-  constructor(private router: Router) { }
-
   TOKEN_KEY: string = "token";
 
-  private emailSubject = new BehaviorSubject<string>(localStorage.getItem(this.TOKEN_KEY) || '');
+  private emailSubject = new BehaviorSubject<string>('');
+
+  constructor(private router: Router) {
+    if (typeof window !== 'undefined') {
+      this.emailSubject = new BehaviorSubject<string>(localStorage.getItem(this.TOKEN_KEY) || '');
+    }
+  }
 
   email$ = this.emailSubject.asObservable();
+
+
 
   login(email: string){
     if (email == '' || !email.match("^.+@.+(\\.com|\\.com.br){1}$")) {
@@ -23,7 +29,7 @@ export class AuthService {
     const token = email;
     localStorage.setItem(this.TOKEN_KEY, token);
     this.emailSubject.next(email);
-    this.router.navigate(['/funcionarios']);
+    this.router.navigate(['/login']);
   }
 
   logout(){
@@ -33,6 +39,8 @@ export class AuthService {
   }
 
   getIsAuthorized(): boolean{
-    return localStorage.getItem(this.TOKEN_KEY) ? true : false;
+    if (typeof window !== 'undefined') {
+      return !!localStorage.getItem(this.TOKEN_KEY);
+    } return false;
   }
 }
