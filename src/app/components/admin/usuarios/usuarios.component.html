@@ -1,0 +1,66 @@
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+    <p-button label='Criar' (click)="novo()"></p-button>
+    <p-button label='Excluir' (click)="entrarModoExclusao()"></p-button>
+    <p-button label='Voltar' (click)="voltar()"></p-button>
+  </div>
+  <div class="p-toolbar-group-right">
+    <span class="user-info">Operador: <strong>{{ 'Fulano123' }}</strong></span>
+  </div>
+</p-toolbar>
+
+<p-table [value]="usuarios"
+         [(selection)]="usuariosSelecionados"
+         dataKey="nome"
+         [selectionMode]="modoExclusao ? 'multiple' : 'single'"
+         [paginator]="true"
+         [rows]="10">
+  <ng-template pTemplate="header">
+    <tr>
+      <th *ngIf="modoExclusao" style="width: 3rem">
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+      </th>
+      <th>Nome</th>
+      <th>E-mail</th>
+      <th>Senha</th>
+      <th>Peril</th>
+      <th>Status</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-usuario>
+    <tr [pSelectableRow]="usuario">
+      <td *ngIf="modoExclusao" style="width: 3rem">
+        <p-tableCheckbox [value]="usuario"></p-tableCheckbox>
+      </td>
+      <td>{{ usuario.nome }}</td>
+      <td>{{ usuario.email }}</td>
+      <td>{{ usuario.senha }}</td>
+      <td>{{ usuario.perfil }}</td>
+      <td>{{ usuario.status }}</td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-toolbar *ngIf="!modoExclusao && usuariosSelecionados && !Array.isArray(usuariosSelecionados)">
+  <div>
+    <strong>{{ usuariosSelecionados.nome }}</strong>
+  </div>
+
+  <p-button
+    label="Alterar informações"
+    icon="pi pi-check"
+    class="p-button-success"
+    (click)="alterarInformacoes()">
+  </p-button>
+</p-toolbar>
+
+<p-toolbar *ngIf="modoExclusao">
+  <span><strong>Selecione os usuarios para excluir</strong></span>
+
+  <p-button
+    label="Confirmar Exclusão"
+    icon="pi pi-check"
+    class="p-button-danger"
+    (click)="excluirSelecionados()">
+  </p-button>
+</p-toolbar>

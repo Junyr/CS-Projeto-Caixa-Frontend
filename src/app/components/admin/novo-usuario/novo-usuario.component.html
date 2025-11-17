@@ -1,0 +1,33 @@
+<!--*ngIf="produto"-->
+<div class="novo-container">
+  <h2>Novo Usuario</h2>
+
+  <div class="form-container">
+
+    <div class="form-group">
+      <label>Nome</label>
+      <input type="text" pInputText [(ngModel)]="usuario.nome" />
+    </div>
+
+    <div class="form-group">
+      <label>E-mail</label>
+      <input type="text" pInputText [(ngModel)]="usuario.email" />
+    </div>
+
+    <div class="form-group">
+      <label>Senha</label>
+      <input type="text" pInputText [(ngModel)]="usuario.senha" />
+    </div>
+
+    <div class="form-group">
+      <label>Perfil</label>
+      <p-inputNumber [(ngModel)]="usuario.perfil"></p-inputNumber>
+    </div>
+
+  </div>
+
+  <div class="button-row">
+    <p-button label="Salvar" class="p-button-success" (click)="salvar()"></p-button>
+    <p-button label="Cancelar" class="p-button-secondary" (click)="cancelar()"></p-button>
+  </div>
+</div>

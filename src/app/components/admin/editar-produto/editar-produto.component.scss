@@ -1,0 +1,33 @@
+.editar-container {
+  width: 400px;           /* largura fixa centralizada */
+  margin: 40px auto;      /* centraliza horizontalmente */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;              /* espaçamento entre todos os elementos */
+}
+
+h2 {
+  text-align: center;     /* título centralizado */
+  margin-bottom: 10px;
+}
+
+.button-row {
+  display: flex;
+  justify-content: space-between;  /* botões lado a lado */
+  margin-top: 10px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;   /* inputs um embaixo do outro */
+  gap: 20px;                /* espaçamento entre os inputs */
+  max-width: 400px;         /* largura do form */
+  margin: 40px auto;        /* centraliza na tela */
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}

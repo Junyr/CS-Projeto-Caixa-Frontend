@@ -1,0 +1,67 @@
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+    <p-button label='Usuarios' (click)="usuarios()"></p-button>
+    <p-button label='Criar' (click)="novo()"></p-button>
+    <p-button label='Excluir' (click)="entrarModoExclusao()"></p-button>
+    <p-button label='Relatórios' (click)="abrirRelatorios()"></p-button>
+  </div>
+  <div class="p-toolbar-group-right">
+    <span class="user-info">Operador: <strong>{{ 'Fulano123' }}</strong></span>
+  </div>
+</p-toolbar>
+
+<p-table [value]="produtos"
+         [(selection)]="produtosSelecionados"
+         dataKey="codigo"
+         [selectionMode]="modoExclusao ? 'multiple' : 'single'"
+         [paginator]="true"
+         [rows]="10">
+  <ng-template pTemplate="header">
+    <tr>
+      <th *ngIf="modoExclusao" style="width: 3rem">
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+      </th>
+      <th>Codigo</th>
+      <th>Nome</th>
+      <th>Categoria</th>
+      <th>Estoque</th>
+      <th>Preço Unitario</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-produto>
+    <tr [pSelectableRow]="produto">
+      <td *ngIf="modoExclusao" style="width: 3rem">
+        <p-tableCheckbox [value]="produto"></p-tableCheckbox>
+      </td>
+      <td>{{ produto.codigo }}</td>
+      <td>{{ produto.nome }}</td>
+      <td>{{ produto.categoria }}</td>
+      <td>{{ produto.quantidade }}</td>
+      <td>{{ produto.preco }}</td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-toolbar *ngIf="!modoExclusao && produtosSelecionados && !Array.isArray(produtosSelecionados)">
+  <div>
+    <strong>{{ produtosSelecionados.nome }}</strong>
+  </div>
+
+  <p-button
+    label="Alterar informações"
+    icon="pi pi-check"
+    class="p-button-success"
+    (click)="alterarInformacoes()">
+  </p-button>
+</p-toolbar>
+
+<p-toolbar *ngIf="modoExclusao">
+  <span><strong>Selecione os produtos para excluir</strong></span>
+
+  <p-button
+    label="Confirmar Exclusão"
+    icon="pi pi-check"
+    class="p-button-danger"
+    (click)="excluirSelecionados()">
+  </p-button>
+</p-toolbar>

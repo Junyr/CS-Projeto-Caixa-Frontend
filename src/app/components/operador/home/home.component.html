@@ -1,0 +1,66 @@
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+    <p-button label='Relatórios' (click)="abrirRelatorios()"></p-button>
+  </div>
+  <div class="p-toolbar-group-right">
+    <span class="user-info">Operador: <strong>{{ 'Fulano123' }}</strong></span>
+  </div>
+</p-toolbar>
+
+<p-table [value]="produtos"
+         [(selection)]="produtosSelecionados"
+         dataKey="codigo"
+         selectionMode="single"
+         [paginator]="true"
+         [rows]="10"
+         (onRowSelect)="quandoSelecionar($event)"
+         (onRowUnselect)="quandoDesselecionar($event)">
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 3rem">
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+      </th>
+      <th>Codigo</th>
+      <th>Nome</th>
+      <th>Categoria</th>
+      <th>Estoque</th>
+      <th>Preço Unitario</th>
+      <th>Quantidade</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-produto>
+    <tr>
+      <td style="width: 3rem">
+        <p-tableCheckbox [value]="produto"></p-tableCheckbox>
+      </td>
+      <td>{{ produto.codigo }}</td>
+      <td>{{ produto.nome }}</td>
+      <td>{{ produto.categoria }}</td>
+      <td>{{ produto.quantidade }}</td>
+      <td>{{ produto.preco }}</td>
+      <td>
+        <input
+          type="number"
+          min="1"
+          [max]="produto.quantidade"
+          [(ngModel)]="produto.quantidadeSelecionada"
+          [disabled]="!produtosSelecionados.includes(produto)"
+          style="width: 4rem"
+        />
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-toolbar *ngIf="produtosSelecionados.length > 0">
+  <div>
+    Total: <strong>{{ calcularTotal() | currency:'BRL' }}</strong>
+  </div>
+
+  <p-button
+    label="Registrar Venda"
+    icon="pi pi-check"
+    class="p-button-success"
+    (click)="registrarVenda()">
+  </p-button>
+</p-toolbar>
