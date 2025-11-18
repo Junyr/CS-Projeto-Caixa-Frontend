@@ -20,7 +20,11 @@ export class HeaderComponent {
     perfil: ''
   };
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {
+    this.authService.usuarioInfo$.subscribe(u => {
+      this.usuario = u;
+    });
+  }
 
   sair() { this.authService.logout(); }
 

@@ -37,14 +37,19 @@ export class CadastroComponent implements OnInit {
 
   isSalvo: boolean = false;
 
-  constructor(private router: Router, private authService: AuthService){}
+  constructor(private router: Router,
+              private authService: AuthService){}
 
   ngOnInit(): void {
     this.isSalvo = false;
   }
 
   cadastrar() {
-    
+    const bool = this.authService.cadastrar(this.usuario);
+    if (bool) {
+      this.isSalvo = true;
+      this.router.navigate(['/login']);
+    }
   }
 
   voltar() {

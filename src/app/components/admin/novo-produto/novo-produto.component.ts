@@ -5,6 +5,7 @@ import {InputNumber} from 'primeng/inputnumber';
 import {InputText} from 'primeng/inputtext';
 import {Router} from '@angular/router';
 import {Produto} from '../../../model/produto';
+import {ProdutosService} from '../../../service/produtos.service';
 
 @Component({
   selector: 'app-novo-produto',
@@ -19,7 +20,7 @@ import {Produto} from '../../../model/produto';
 })
 export class NovoProdutoComponent {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private produtoService: ProdutosService) { }
 
   produto: Produto = {
     categoria: '', codigo: 0, nome: '', preco: 0, quantidade: 0
@@ -27,7 +28,7 @@ export class NovoProdutoComponent {
   };
 
   salvar() {
-    console.log('Produto salvo:', this.produto);
+    this.produtoService.adicionarProduto(this.produto);
     this.router.navigate(['admin/home']);
   }
 

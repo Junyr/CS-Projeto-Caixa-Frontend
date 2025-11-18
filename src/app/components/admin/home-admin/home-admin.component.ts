@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {Button} from 'primeng/button';
 import {CurrencyPipe, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
@@ -7,6 +7,7 @@ import {TableModule} from 'primeng/table';
 import {Toolbar} from 'primeng/toolbar';
 import {Router} from '@angular/router';
 import {Produto} from '../../../model/produto';
+import {ProdutosService} from '../../../service/produtos.service';
 
 @Component({
   selector: 'app-home-admin',
@@ -21,9 +22,9 @@ import {Produto} from '../../../model/produto';
   templateUrl: './home-admin.component.html',
   styleUrl: './home-admin.component.scss'
 })
-export class HomeAdminComponent {
+export class HomeAdminComponent implements OnInit {
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private produtoService: ProdutosService) {
   }
 
   protected usuarioLogado: string = '';
@@ -32,6 +33,10 @@ export class HomeAdminComponent {
 
   protected modoExclusao: boolean = false;
   protected produtosSelecionados: Produto | Produto[] = [];
+
+  ngOnInit(): void {
+    this.produtos = this.produtoService.getProdutos();
+  }
 
   protected adicionarItem() {
 
