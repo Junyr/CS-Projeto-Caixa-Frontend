@@ -65,9 +65,6 @@ export class HomeComponent implements OnInit {
 
   protected registrarVenda() {
 
-    const quantidadeItens = this.produtosSelecionados
-      .reduce((acc, p) => acc + (p.quantidadeSelecionada ?? 0), 0);
-
     const total = this.produtosSelecionados
       .reduce((acc, p) => acc + (p.preco * (p.quantidadeSelecionada ?? 0)), 0);
 

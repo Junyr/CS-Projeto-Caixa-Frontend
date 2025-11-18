@@ -5,7 +5,6 @@ import {PrimeTemplate} from "primeng/api";
 import {TableModule} from "primeng/table";
 import {Toolbar} from "primeng/toolbar";
 import {Router} from '@angular/router';
-import {Produto} from '../../../model/produto';
 import {Usuario} from '../../../model/usuario';
 import {UsuarioService} from '../../../service/usuario.service';
 

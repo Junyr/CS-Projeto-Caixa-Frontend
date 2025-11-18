@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Button} from 'primeng/button';
-import {CurrencyPipe, NgIf} from '@angular/common';
+import {NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {PrimeTemplate} from 'primeng/api';
 import {TableModule} from 'primeng/table';
@@ -54,7 +54,7 @@ export class HomeAdminComponent implements OnInit {
   protected excluirSelecionados(selecionados: Produto | Produto[]) {
     if (!selecionados) return;
 
-    let codigos: number[] = [];
+    let codigos: number[];
 
     if (Array.isArray(selecionados)) {
       codigos = selecionados.map(p => p.codigo);
