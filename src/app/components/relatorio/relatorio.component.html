@@ -1,11 +1,7 @@
 <p-toolbar>
   <div class="p-toolbar-group-left">
-    <p-button label='Voltar Admin' (onClick)="voltarAdmin()"></p-button>
-
-    <p-button label='Voltar' (onClick)="voltar()"></p-button>
-  </div>
-  <div class="p-toolbar-group-right">
-    <span class="user-info">OPERADOR: <strong>{{ 'Fulano123' }}</strong></span>
+    <p-button *ngIf="usuarioLogado?.perfil === 'ADMIN'" label='Voltar' (click)="voltarAdmin()"></p-button>
+    <p-button *ngIf="usuarioLogado?.perfil === 'OPERADOR'" label='Voltar' (click)="voltar()"></p-button>
   </div>
 </p-toolbar>
 
