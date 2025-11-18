@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Button } from "primeng/button";
 import { NgIf } from '@angular/common';
 import { AuthService } from '../../service/auth.service';
-import { UsuarioInfo } from '../../model/usuarioInfo';
+import { Usuario } from '../../model/usuario';
 
 @Component({
   selector: 'app-header',
@@ -15,10 +15,7 @@ import { UsuarioInfo } from '../../model/usuarioInfo';
 })
 export class HeaderComponent {
 
-  usuario: UsuarioInfo = {
-    nome: '',
-    perfil: ''
-  };
+  usuario: Usuario | null = null;
 
   constructor(private authService: AuthService) {
     this.authService.usuarioInfo$.subscribe(u => {
@@ -26,7 +23,11 @@ export class HeaderComponent {
     });
   }
 
-  sair() { this.authService.logout(); }
+  sair() {
+    this.authService.logout();
+  }
 
-  getIsAuthorized(): boolean { return this.authService.getIsAuthorized(); }
+  getIsAuthorized(): boolean {
+    return this.authService.getIsAuthorized();
+  }
 }

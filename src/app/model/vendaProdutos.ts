@@ -3,5 +3,4 @@ export interface Venda {
   usuario: string;
   data: Date;
   total: number;
-  quantidadeItens: number;
 }

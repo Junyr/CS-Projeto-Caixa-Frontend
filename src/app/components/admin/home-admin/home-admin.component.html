@@ -48,7 +48,7 @@
     label="Alterar informações"
     icon="pi pi-check"
     class="p-button-success"
-    (click)="alterarInformacoes()">
+    (click)="alterarInformacoes(produtosSelecionados)">
   </p-button>
 </p-toolbar>
 
@@ -59,6 +59,6 @@
     label="Confirmar Exclusão"
     icon="pi pi-check"
     class="p-button-danger"
-    (click)="excluirSelecionados()">
+    (click)="excluirSelecionados(produtosSelecionados)">
   </p-button>
 </p-toolbar>

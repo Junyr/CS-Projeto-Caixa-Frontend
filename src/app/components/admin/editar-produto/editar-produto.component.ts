@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import {InputNumber} from 'primeng/inputnumber';
 import {Produto} from '../../../model/produto';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Button} from 'primeng/button';
+import {ProdutosService} from '../../../service/produtos.service';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-editar-produto',
@@ -12,22 +14,36 @@ import {Button} from 'primeng/button';
     FormsModule,
     InputNumber,
     Button,
-    InputTextModule
+    InputTextModule,
+    NgIf
   ],
   templateUrl: './editar-produto.component.html',
   styleUrl: './editar-produto.component.scss'
 })
-export class EditarProdutoComponent {
+export class EditarProdutoComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private produtoService: ProdutosService) { }
 
-  produto: Produto = {
-    categoria: '', codigo: 0, nome: '', preco: 0, quantidade: 0
+  produto!: Produto;
 
-  };
+  ngOnInit(): void {
+    const codigo = Number(this.route.snapshot.paramMap.get('codigo'));
+
+    const produtoEncontrado = this.produtoService.getProdutoByCodigo(codigo);
+
+    if (!produtoEncontrado) {
+      alert("Produto não encontrado!");
+      this.router.navigate(['admin/home']);
+      return;
+    }
+
+    this.produto = { ...produtoEncontrado };
+  }
 
   salvar() {
-    console.log('Produto salvo:', this.produto);
+    this.produtoService.atualizarProduto(this.produto);
     this.router.navigate(['admin/home']);
   }
 

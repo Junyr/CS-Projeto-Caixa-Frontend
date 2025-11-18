@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Button} from "primeng/button";
 import {NgIf} from "@angular/common";
 import {PrimeTemplate} from "primeng/api";
@@ -7,6 +7,7 @@ import {Toolbar} from "primeng/toolbar";
 import {Router} from '@angular/router';
 import {Produto} from '../../../model/produto';
 import {Usuario} from '../../../model/usuario';
+import {UsuarioService} from '../../../service/usuario.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -20,32 +21,24 @@ import {Usuario} from '../../../model/usuario';
   templateUrl: './usuarios.component.html',
   styleUrl: './usuarios.component.scss'
 })
-export class UsuariosComponent {
+export class UsuariosComponent implements OnInit {
 
-  constructor(private router: Router) {
-  }
-
-  protected usuarioLogado: string = '';
+  constructor(private router: Router,
+              private usuarioService: UsuarioService) {}
 
   protected usuarios: Usuario[] = [];
 
   protected modoExclusao: boolean = false;
-  protected usuariosSelecionados: Produto | Produto[] = [];
+  protected usuariosSelecionados: Usuario | Usuario[] = [];
 
-  protected adicionarItem() {
-
+  ngOnInit(): void {
+    if (typeof window !== 'undefined') {
+      this.usuarios = this.usuarioService.getUsuarios();
+    }
   }
 
-  protected abrirEstoque() {
-
-  }
-
-  protected logout() {
-
-  }
-
-  protected alterarInformacoes() {
-    this.router.navigate(['admin/editarUsuario']);
+  protected alterarInformacoes(usuario: Usuario) {
+    this.router.navigate(['admin/editarUsuario', usuario.id]);
   }
 
   protected entrarModoExclusao() {
@@ -54,7 +47,20 @@ export class UsuariosComponent {
   }
 
   protected excluirSelecionados() {
+    if (Array.isArray(this.usuariosSelecionados)) {
+      if(!this.usuariosSelecionados.length) {
+        alert("Nenhum usuário selecionado.");
+        return;
+      }
 
+      const ids = this.usuariosSelecionados.map(u => u.id!);
+
+      this.usuarioService.removerUsuarios(ids);
+
+      this.usuariosSelecionados = [];
+      this.modoExclusao = false;
+      this.usuarios = this.usuarioService.getUsuarios();
+    }
   }
 
   protected novo() {

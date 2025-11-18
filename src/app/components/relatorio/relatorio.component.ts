@@ -6,6 +6,7 @@ import {TableModule} from "primeng/table";
 import {Toolbar} from "primeng/toolbar";
 import {Venda} from '../../model/vendaProdutos';
 import {Router} from '@angular/router';
+import {VendaService} from '../../service/venda.service';
 
 @Component({
   selector: 'app-relatorio',
@@ -21,7 +22,11 @@ import {Router} from '@angular/router';
 })
 export class RelatorioComponent {
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private vendaService: VendaService) {
+    if (typeof window !== 'undefined') {
+      this.vendas = this.vendaService.getVendas();
+    }
   }
 
   vendas: Venda[] = [];

@@ -19,11 +19,17 @@
       <input type="text" pInputText [(ngModel)]="usuario.senha" />
     </div>
 
-    <div class="form-group">
-      <label>Perfil</label>
-      <p-inputNumber [(ngModel)]="usuario.perfil"></p-inputNumber>
-    </div>
-
+    <span class="p-float-label">
+      <label for="perfil">Perfil</label>
+      <p-dropdown
+        id="perfil"
+        [options]="perfis"
+        [(ngModel)]="usuario.perfil"
+        optionLabel="label"
+        optionValue="value"
+        inputId="perfil"
+      ></p-dropdown>
+    </span>
   </div>
 
   <div class="button-row">

@@ -1,33 +1,39 @@
 import { Component } from '@angular/core';
 import {Button} from "primeng/button";
 import {FormsModule} from "@angular/forms";
-import {InputNumber} from "primeng/inputnumber";
 import {InputText} from "primeng/inputtext";
 import {Router} from '@angular/router';
-import {Produto} from '../../../model/produto';
 import {Usuario} from '../../../model/usuario';
+import {UsuarioService} from '../../../service/usuario.service';
+import {DropdownModule} from 'primeng/dropdown';
 
 @Component({
   selector: 'app-novo-usuario',
-    imports: [
-        Button,
-        FormsModule,
-        InputNumber,
-        InputText
-    ],
+  imports: [
+    Button,
+    FormsModule,
+    InputText,
+    DropdownModule
+  ],
   templateUrl: './novo-usuario.component.html',
   styleUrl: './novo-usuario.component.scss'
 })
 export class NovoUsuarioComponent {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private usuarioService: UsuarioService) { }
 
   usuario: Usuario = {
     email: '', nome: '', perfil: '', senha: ''
   };
 
+  perfis = [
+    { label: 'ADMIN', value: 'ADMIN' },
+    { label: 'OPERADOR', value: 'OPERADOR' }
+  ];
+
   salvar() {
-    console.log('Usuario salvo:', this.usuario);
+    this.usuarioService.adicionarUsuario(this.usuario);
     this.router.navigate(['admin/home']);
   }
 

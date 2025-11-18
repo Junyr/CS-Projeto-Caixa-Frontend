@@ -27,35 +27,23 @@ export class HomeAdminComponent implements OnInit {
   constructor(private router: Router, private produtoService: ProdutosService) {
   }
 
-  protected usuarioLogado: string = '';
-
   protected produtos: Produto[] = [];
 
   protected modoExclusao: boolean = false;
   protected produtosSelecionados: Produto | Produto[] = [];
 
   ngOnInit(): void {
-    this.produtos = this.produtoService.getProdutos();
-  }
-
-  protected adicionarItem() {
-
-  }
-
-  protected abrirEstoque() {
-
+    if (typeof window !== 'undefined') {
+      this.produtos = this.produtoService.getProdutos();
+    }
   }
 
   protected abrirRelatorios() {
     this.router.navigate(['relatorio']);
   }
 
-  protected logout() {
-
-  }
-
-  protected alterarInformacoes() {
-    this.router.navigate(['admin/editarProduto']);
+  protected alterarInformacoes(produto: Produto) {
+    this.router.navigate(['admin/editarProduto', produto.codigo]);
   }
 
   protected entrarModoExclusao() {
@@ -63,8 +51,23 @@ export class HomeAdminComponent implements OnInit {
     this.produtosSelecionados = [];
   }
 
-  protected excluirSelecionados() {
+  protected excluirSelecionados(selecionados: Produto | Produto[]) {
+    if (!selecionados) return;
 
+    let codigos: number[] = [];
+
+    if (Array.isArray(selecionados)) {
+      codigos = selecionados.map(p => p.codigo);
+    } else {
+      codigos = [selecionados.codigo];
+    }
+
+    this.produtoService.removerProdutos(codigos);
+
+    this.produtos = this.produtoService.getProdutos();
+
+    this.modoExclusao = false;
+    this.produtosSelecionados = [];
   }
 
   protected readonly Array = Array;

@@ -1,5 +1,4 @@
-<!--*ngIf="usuario"-->
-<div class="editar-container">
+<div class="editar-container" *ngIf="usuario">
   <h2>Editar Usuario</h2>
 
   <div class="form-container">
@@ -19,10 +18,17 @@
       <input type="text" pInputText [(ngModel)]="usuario.senha" />
     </div>
 
-    <div class="form-group">
-      <label>Perfil</label>
-      <p-inputNumber [(ngModel)]="usuario.perfil"></p-inputNumber>
-    </div>
+    <span class="p-float-label">
+      <label for="perfil">Perfil</label>
+      <p-dropdown
+        id="perfil"
+        [options]="perfis"
+        [(ngModel)]="usuario.perfil"
+        optionLabel="label"
+        optionValue="value"
+        inputId="perfil"
+      ></p-dropdown>
+    </span>
 
   </div>
 

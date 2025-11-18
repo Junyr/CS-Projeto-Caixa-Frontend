@@ -20,8 +20,8 @@ export const routes: Routes = [
   { path: 'admin/home', component: HomeAdminComponent },
   { path: 'relatorio', component: RelatorioComponent },
   { path: 'admin/novoProduto', component: NovoProdutoComponent },
-  { path: 'admin/editarProduto', component: EditarProdutoComponent },
+  { path: 'admin/editarProduto/:codigo', component: EditarProdutoComponent },
   { path: 'admin/usuarios', component: UsuariosComponent },
   { path: 'admin/novoUsuario', component: NovoUsuarioComponent },
-  { path: 'admin/editarUsuario', component: EditarUsuarioComponent }
+  { path: 'admin/editarUsuario/:id', component: EditarUsuarioComponent }
 ];

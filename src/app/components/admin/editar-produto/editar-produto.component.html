@@ -1,27 +1,26 @@
-<!--*ngIf="produto"-->
-<div class="editar-container">
+<div class="editar-container" *ngIf="produto as p">
   <h2>Editar Produto</h2>
 
   <div class="form-container">
 
     <div class="form-group">
       <label>Código</label>
-      <input type="text" pInputText [(ngModel)]="produto.codigo" disabled />
+      <input type="text" pInputText [(ngModel)]="p.codigo" disabled />
     </div>
 
     <div class="form-group">
       <label>Nome</label>
-      <input type="text" pInputText [(ngModel)]="produto.nome" />
+      <input type="text" pInputText [(ngModel)]="p.nome" />
     </div>
 
     <div class="form-group">
       <label>Categoria</label>
-      <input type="text" pInputText [(ngModel)]="produto.categoria" />
+      <input type="text" pInputText [(ngModel)]="p.categoria" />
     </div>
 
     <div class="form-group">
       <label>Quantidade</label>
-      <p-inputNumber [(ngModel)]="produto.quantidade"></p-inputNumber>
+      <p-inputNumber [(ngModel)]="p.quantidade"></p-inputNumber>
     </div>
 
     <div class="form-group">
@@ -30,7 +29,7 @@
         mode="currency"
         currency="BRL"
         locale="pt-BR"
-        [(ngModel)]="produto.preco">
+        [(ngModel)]="p.preco">
       </p-inputNumber>
     </div>
 
@@ -40,4 +39,8 @@
     <p-button label="Salvar" class="p-button-success" (click)="salvar()"></p-button>
     <p-button label="Cancelar" class="p-button-secondary" (click)="cancelar()"></p-button>
   </div>
+</div>
+
+<div *ngIf="!produto">
+  Carregando produto...
 </div>
